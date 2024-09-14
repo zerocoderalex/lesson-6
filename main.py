@@ -35,7 +35,7 @@ class Admin(User):
     def remove_user(self, user):
         if user in self.__users:
             self.__users.remove(user)
-            print(f"Пользователь {user.get_name()} удаленг.")
+            print(f"Пользователь {user.get_name()} удален.")
         else:
             print("Пользователя нет в списке.")
 
