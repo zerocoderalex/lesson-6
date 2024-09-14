@@ -25,36 +25,45 @@ class Admin(User):
     def __init__(self, user_id, name):
         super().__init__(user_id, name)  # Инициализация родительского класса
         self.__access_level = 'admin'  # Уровень доступа для администратора
-
+        self.__users = []
     # Метод для добавления пользователя в систему
-    def add_user(self, user_list, user):
+    def add_user(self, user):
         """Добавляет пользователя в список пользователей."""
-        user_list.append(user)  # Добавляем пользователя в список
+        self.__users.append(user)  # Добавляем пользователя в список
 
     # Метод для удаления пользователя из системы
-    def remove_user(self, user_list, user):
+    def remove_user(self, user):
         """Удаляет пользователя из списка пользователей."""
-        if user in user_list:
-            user_list.remove(user)  # Удаляем пользователя из списка
+        if user in self.__users:
+            self.__users.remove(user)  # Удаляем пользователя из списка
         else:
             print("Пользователь не найден в списке.")  # Сообщение, если пользователь не найден
 
-            # Создаем список пользователей
-            user_list = []
-            # Создаем обычных пользователей
-            user1 = User(1, "Иван")
-            user2 = User(2, "Анна")
+            #print(user.get_name())  # Выводит имена оставшихся пользователей
 
-            # Создаем администратора
-            admin = Admin(3, "Сергей")
+    def get_users(self):
+        return [user.get_name() for user in self.__users]
 
-            # Добавляем пользователей в список
-            admin.add_user(user_list, user1)
-            admin.add_user(user_list, user2)
 
-            # Удаляем пользователя
-            admin.remove_user(user_list, user1)
+    def get_access_level(self):
+        return self.__access_level
 
-            # Проверяем список пользователей
-            for user in user_list:
-                print(user.get_name())  # Выводит имена оставшихся пользователей
+        # Создаем список пользователей
+if __name__ == "__main__":
+        # Создаем обычных пользователей
+    user1 = User(1, "Иван")
+    user2 = User(2, "Анна")
+
+        # Создаем администратора
+    admin = Admin(3, "Сергей")
+
+        # Добавляем пользователей в список
+    admin.add_user(user1)
+    admin.add_user(user2)
+
+        # Удаляем пользователя
+    admin.remove_user(user2)
+
+        # Проверяем список пользователей
+    print(admin.get_users())  # Выводит имена оставшихся пользователей
+        #print("Оставшиеся пользователи:", admin.get_users())
